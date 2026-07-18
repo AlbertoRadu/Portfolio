@@ -140,6 +140,8 @@ const ModelInner: FC<ModelInnerProps> = ({
   useLayoutEffect(() => {
     if (!content) return;
     const g = inner.current;
+    g.scale.setScalar(1);
+    g.position.set(0, 0, 0);
     g.updateWorldMatrix(true, true);
 
     const sphere = new THREE.Box3().setFromObject(g).getBoundingSphere(new THREE.Sphere());
