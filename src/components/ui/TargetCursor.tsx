@@ -39,6 +39,7 @@ export interface TargetCursorProps {
   parallaxOn?: boolean;
   cursorColor?: string;
   cursorColorOnTarget?: string;
+  sectionSelector?: string;
 }
 
 const TargetCursor: React.FC<TargetCursorProps> = ({
@@ -48,7 +49,8 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
   hoverDuration = 0.2,
   parallaxOn = true,
   cursorColor = '#ffffff',
-  cursorColorOnTarget
+  cursorColorOnTarget,
+  sectionSelector
 }) => {
   const cursorRef = useRef<HTMLDivElement>(null);
   const cornersRef = useRef<NodeListOf<HTMLDivElement> | null>(null);
@@ -83,11 +85,16 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
     if (isMobile || !cursorRef.current) return;
 
     const originalCursor = document.body.style.cursor;
-    if (hideDefaultCursor) {
-      document.body.style.cursor = 'none';
-    }
-
     const cursor = cursorRef.current;
+
+    if (sectionSelector) {
+      gsap.set(cursor, { opacity: 0 });
+    } else {
+      if (hideDefaultCursor) {
+        document.body.style.cursor = 'none';
+      }
+      gsap.set(cursor, { opacity: 1 });
+    }
     cornersRef.current = cursor.querySelectorAll<HTMLDivElement>('.target-cursor-corner');
 
     containingBlockRef.current = getContainingBlock(cursor);
@@ -152,7 +159,25 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
 
     tickerFnRef.current = tickerFn;
 
-    const moveHandler = (e: MouseEvent) => moveCursor(e.clientX, e.clientY);
+    const moveHandler = (e: MouseEvent) => {
+      moveCursor(e.clientX, e.clientY);
+
+      if (sectionSelector) {
+        const target = e.target as HTMLElement;
+        const isInside = target?.closest(sectionSelector);
+        if (isInside) {
+          if (document.body.style.cursor !== 'none' && hideDefaultCursor) {
+            document.body.style.cursor = 'none';
+          }
+          gsap.to(cursor, { opacity: 1, duration: 0.15, overwrite: 'auto' });
+        } else {
+          if (document.body.style.cursor === 'none') {
+            document.body.style.cursor = originalCursor || 'auto';
+          }
+          gsap.to(cursor, { opacity: 0, duration: 0.15, overwrite: 'auto' });
+        }
+      }
+    };
     window.addEventListener('mousemove', moveHandler);
 
     const scrollHandler = () => {
@@ -353,7 +378,8 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
     hoverDuration,
     parallaxOn,
     cursorColor,
-    cursorColorOnTarget
+    cursorColorOnTarget,
+    sectionSelector
   ]);
 
   useEffect(() => {
