@@ -57,7 +57,7 @@
     "banc_temps_tag1": "Arquitectura Full-Stack",
     "banc_temps_desc1": "Vaig desenvolupar una interfície interactiva en React integrada amb un backend robust i segur en Django Rest Framework, proporcionant actualitzacions en temps real per als membres del banc del temps.",
     "banc_temps_tag2": "Desplegament Contenidoritzat",
-    "banc_temps_desc2": "Entorn local completament contenidoritzat utilitzant Docker i Docker Compose, orquestrant el frontend de React, l'API de Django, la base de dades PostgreSQL i un servidor Nginx.",
+    "banc_temps_desc2": "Entorn local completament contenidoritzat utilitzant Docker i Docker Compose, orquestrant el frontend de React, l'API de Django i la base de dades PostgreSQL.",
     "banc_temps_tag3": "Seguretat i Autenticació",
     "banc_temps_desc3": "Vaig implementar autenticació mitjançant JSON Web Tokens (JWT) segurs amb rotació basada en cookies per protegir les APIs, mitigar riscos CSRF/XSS i controlar l'accés basat en rols."
   },

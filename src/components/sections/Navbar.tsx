@@ -1,6 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 
+interface NavItem {
+  id: string;
+  labelKey: string;
+}
+
+const NAV_ITEMS: NavItem[] = [
+  { id: 'home', labelKey: 'nav.home' },
+  { id: 'about-me', labelKey: 'nav.about' },
+  { id: 'technologies', labelKey: 'nav.technologies' },
+  { id: 'projects', labelKey: 'nav.projects' }
+];
+
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -59,42 +71,17 @@ function Navbar() {
 
         {/* Desktop Navigation links */}
         <ul className="hidden md:flex items-center gap-10 text-xs font-mono tracking-wider uppercase">
-          <li>
-            <a
-              href="#home"
-              onClick={(e) => handleNavClick(e, 'home')}
-              className="cursor-target text-gray-400 hover:text-white transition-colors duration-200"
-            >
-              {t('nav.home')}
-            </a>
-          </li>
-          <li>
-            <a
-              href="#about-me"
-              onClick={(e) => handleNavClick(e, 'about-me')}
-              className="cursor-target text-gray-400 hover:text-white transition-colors duration-200"
-            >
-              {t('nav.about')}
-            </a>
-          </li>
-          <li>
-            <a
-              href="#technologies"
-              onClick={(e) => handleNavClick(e, 'technologies')}
-              className="cursor-target text-gray-400 hover:text-white transition-colors duration-200"
-            >
-              {t('nav.technologies')}
-            </a>
-          </li>
-          <li>
-            <a
-              href="#projects"
-              onClick={(e) => handleNavClick(e, 'projects')}
-              className="cursor-target text-gray-400 hover:text-white transition-colors duration-200"
-            >
-              {t('nav.projects')}
-            </a>
-          </li>
+          {NAV_ITEMS.map((item) => (
+            <li key={item.id}>
+              <a
+                href={`#${item.id}`}
+                onClick={(e) => handleNavClick(e, item.id)}
+                className="cursor-target text-gray-400 hover:text-white transition-colors duration-200"
+              >
+                {t(item.labelKey)}
+              </a>
+            </li>
+          ))}
         </ul>
 
         {/* Right Language Selector */}
@@ -134,42 +121,17 @@ function Navbar() {
           }`}
         >
           <ul className="flex flex-col items-center gap-6 font-mono text-xs tracking-wider uppercase">
-            <li>
-              <a
-                href="#home"
-                onClick={(e) => handleMobileNavClick(e, 'home')}
-                className="cursor-target text-gray-400 hover:text-white transition-colors duration-200"
-              >
-                {t('nav.home')}
-              </a>
-            </li>
-            <li>
-              <a
-                href="#about-me"
-                onClick={(e) => handleMobileNavClick(e, 'about-me')}
-                className="cursor-target text-gray-400 hover:text-white transition-colors duration-200"
-              >
-                {t('nav.about')}
-              </a>
-            </li>
-            <li>
-              <a
-                href="#technologies"
-                onClick={(e) => handleMobileNavClick(e, 'technologies')}
-                className="cursor-target text-gray-400 hover:text-white transition-colors duration-200"
-              >
-                {t('nav.technologies')}
-              </a>
-            </li>
-            <li>
-              <a
-                href="#projects"
-                onClick={(e) => handleMobileNavClick(e, 'projects')}
-                className="cursor-target text-gray-400 hover:text-white transition-colors duration-200"
-              >
-                {t('nav.projects')}
-              </a>
-            </li>
+            {NAV_ITEMS.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  onClick={(e) => handleMobileNavClick(e, item.id)}
+                  className="cursor-target text-gray-400 hover:text-white transition-colors duration-200"
+                >
+                  {t(item.labelKey)}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

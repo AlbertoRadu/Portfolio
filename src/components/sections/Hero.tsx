@@ -15,9 +15,9 @@ function Hero() {
                 speed={0.5}
                 scrambleChars=".:"
                 >
-                  <span className="block text-[clamp(32px,6vw,72px)] font-bold text-white leading-none mb-2 select-none whitespace-nowrap">
+                  <h1 className="block text-[clamp(32px,6vw,72px)] font-bold text-white leading-none mb-2 select-none whitespace-nowrap">
                     {t('hero.title')}
-                  </span>
+                  </h1>
                   <span className="block text-[clamp(18px,3vw,36px)] text-gray-400 leading-tight select-none">
                     {t('hero.subtitle')}
                   </span>
