@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "technologies": "Technologies",
+    "projects": "Projects"
+  },
+  "hero": {
+    "title": "Gabriel Radu",
+    "subtitle": "Junior Web Developer",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "email": "Email"
+  },
+  "about": {
+    "subtitle": "Resume & Profile",
+    "title": "About Me",
+    "bio": "A Junior Web Developer passionate about creating interactive web experiences and secure APIs. I build scalable applications focused on clean frontend designs and robust backend architectures, approaching every project with dedication and attention to detail.",
+    "languages": "Languages",
+    "lang_es": "Spanish (Native)",
+    "lang_ca": "Catalan (Native)",
+    "lang_en": "English (B2 - Cambridge First Certificate)",
+    "download_cv": "Download CV",
+    "experience_title": "Work Experience",
+    "experience_role": "Software Developer (Internship)",
+    "experience_company": "Admira",
+    "experience_date": "Oct 2025 – May 2026",
+    "experience_bullet1": "Collaborated on the integration of artificial vision models into interactive web interfaces.",
+    "experience_bullet2": "Participated in the design of real-time control panels for hardware management.",
+    "experience_bullet3": "Implemented data synchronization logic between physical sensors and software.",
+    "education_title": "Education & Certifications",
+    "education_degree": "Higher Degree in Web Applications Development (DAW)",
+    "education_school": "Institut TIC Barcelona",
+    "education_date": "2026",
+    "cert_scikit": "Supervised Learning with scikit-learn",
+    "cert_scikit_org": "DataCamp (2026)",
+    "cert_sql": "Database Programming with SQL",
+    "cert_sql_org": "Oracle Academy (2025)"
+  },
+  "tech": {
+    "subtitle": "Skills & Tools",
+    "title": "Technologies",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "tools": "Tools"
+  },
+  "projects": {
+    "subtitle": "Featured Work",
+    "title": "Projects",
+    "view_repo": "View Repository",
+    "matchcota_tag1": "Backend Multitenant",
+    "matchcota_desc1": "REST API implemented in FastAPI featuring strict secure data isolation models for multiple concurrent client organizations. Uses connection pooling and custom tenant-key middleware to prevent cross-organization leakage.",
+    "matchcota_tag2": "Matching Engine",
+    "matchcota_desc2": "Designed a custom algorithm powered by mathematical scoring rules to evaluate compatibility profiles efficiently, using weighted metrics and customizable preference matrices.",
+    "matchcota_tag3": "Async Pipeline",
+    "matchcota_desc3": "Implemented asynchronous routing and background task workers in Python to offload computationally heavy matching requests, ensuring low latency responses.",
+    "banc_temps_tag1": "Full-Stack Architecture",
+    "banc_temps_desc1": "Developed an interactive React frontend integrated with a powerful, secure Django Rest Framework backend service, enabling real-time dashboard updates for time bank members.",
+    "banc_temps_tag2": "Dockerized Deployment",
+    "banc_temps_desc2": "Fully containerized local setup leveraging Docker and Docker Compose, orchestrating React frontend, Django API, PostgreSQL database, and Nginx.",
+    "banc_temps_tag3": "Security & Auth",
+    "banc_temps_desc3": "Implemented secure JSON Web Token (JWT) credentials with cookie-based rotation to protect APIs, mitigate CSRF/XSS risks, and control role-based access."
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "back_to_top": "Back to Top"
+  }
+}

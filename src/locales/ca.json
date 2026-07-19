@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "home": "Inici",
+    "about": "Sobre Mi",
+    "technologies": "Tecnologies",
+    "projects": "Projectes"
+  },
+  "hero": {
+    "title": "Gabriel Radu",
+    "subtitle": "Desenvolupador Web Júnior",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "email": "Correu"
+  },
+  "about": {
+    "subtitle": "Currículum i Perfil",
+    "title": "Sobre Mi",
+    "bio": "Desenvolupador Web Júnior apassionat per crear experiències web interactives i APIs segures. Construeixo aplicacions escalables enfocades en dissenys frontend nets i arquitectures backend sòlides, afrontant cada projecte amb dedicació i atenció al detall.",
+    "languages": "Idiomes",
+    "lang_es": "Castellà (Natiu)",
+    "lang_ca": "Català (Natiu)",
+    "lang_en": "Anglès (B2 - Cambridge First Certificate)",
+    "download_cv": "Descarregar CV",
+    "experience_title": "Experiència Laboral",
+    "experience_role": "Desenvolupador de Programari (Pràctiques)",
+    "experience_company": "Admira",
+    "experience_date": "Oct 2025 – Maig 2026",
+    "experience_bullet1": "Vaig col·laborar en la integració de models de visió artificial en interfícies web interactives.",
+    "experience_bullet2": "Vaig participar en el disseny de panells de control en temps real per a la gestió de maquinari (hardware).",
+    "experience_bullet3": "Vaig implementar la lògica de sincronització de dades entre sensors físics i programari.",
+    "education_title": "Educació i Certificacions",
+    "education_degree": "Grau Superior en Desenvolupament d'Aplicacions Web (DAW)",
+    "education_school": "Institut TIC Barcelona",
+    "education_date": "2026",
+    "cert_scikit": "Supervised Learning with scikit-learn",
+    "cert_scikit_org": "DataCamp (2026)",
+    "cert_sql": "Database Programming with SQL",
+    "cert_sql_org": "Oracle Academy (2025)"
+  },
+  "tech": {
+    "subtitle": "Habilitats i Eines",
+    "title": "Tecnologies",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "tools": "Eines"
+  },
+  "projects": {
+    "subtitle": "Projectes Destacats",
+    "title": "Projectes",
+    "view_repo": "Veure Repositori",
+    "matchcota_tag1": "Backend Multitenant",
+    "matchcota_desc1": "API REST implementada en FastAPI amb un model estricte d'aïllament segur de dades per a múltiples organitzacions clients concurrents. Utilitza pooling de connexions i middleware personalitzat de clau d'inquilí (tenant-key) per evitar fugues d'informació.",
+    "matchcota_tag2": "Motor d'Emparellament",
+    "matchcota_desc2": "Vaig dissenyar un algorisme a mida basat en regles de puntuació matemàtica per avaluar perfils de compatibilitat de manera eficient, utilitzant mètriques ponderades i matrius de preferències personalitzables.",
+    "matchcota_tag3": "Pipeline Asíncron",
+    "matchcota_desc3": "Vaig implementar enrutament asíncron i tasques en segon pla en Python per descarregar les peticions pesades d'emparellement matemàtic, garantint respostes de baixa latència.",
+    "banc_temps_tag1": "Arquitectura Full-Stack",
+    "banc_temps_desc1": "Vaig desenvolupar una interfície interactiva en React integrada amb un backend robust i segur en Django Rest Framework, proporcionant actualitzacions en temps real per als membres del banc del temps.",
+    "banc_temps_tag2": "Desplegament Contenidoritzat",
+    "banc_temps_desc2": "Entorn local completament contenidoritzat utilitzant Docker i Docker Compose, orquestrant el frontend de React, l'API de Django, la base de dades PostgreSQL i un servidor Nginx.",
+    "banc_temps_tag3": "Seguretat i Autenticació",
+    "banc_temps_desc3": "Vaig implementar autenticació mitjançant JSON Web Tokens (JWT) segurs amb rotació basada en cookies per protegir les APIs, mitigar riscos CSRF/XSS i controlar l'accés basat en rols."
+  },
+  "footer": {
+    "rights": "Tots els drets reservats.",
+    "back_to_top": "Tornar a dalt"
+  }
+}
