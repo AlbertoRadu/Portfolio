@@ -1,7 +1,8 @@
-import { FC, Suspense, useRef, useLayoutEffect, useEffect, useMemo } from 'react';
+import { Suspense, useRef, useLayoutEffect, useEffect, useMemo } from 'react';
+import type { FC } from 'react';
 import { Canvas, useFrame, useLoader, useThree, invalidate } from '@react-three/fiber';
 import { OrbitControls, useGLTF, useFBX, useProgress, Html, Environment, ContactShadows } from '@react-three/drei';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import * as THREE from 'three';
 
 export interface ViewerProps {
@@ -127,7 +128,10 @@ const ModelInner: FC<ModelInnerProps> = ({
   const tHov = useRef({ x: 0, y: 0 });
   const cHov = useRef({ x: 0, y: 0 });
 
-  const ext = useMemo(() => url.split('.').pop()!.toLowerCase(), [url]);
+  const ext = useMemo(() => {
+    const cleanUrl = url.split('?')[0].split('#')[0];
+    return cleanUrl.split('.').pop()!.toLowerCase();
+  }, [url]);
   const content = useMemo<THREE.Object3D | null>(() => {
     if (ext === 'glb' || ext === 'gltf') return useGLTF(url).scene.clone();
     if (ext === 'fbx') return useFBX(url).clone();
@@ -347,8 +351,28 @@ const ModelInner: FC<ModelInnerProps> = ({
     outer.current.rotation.y += cHov.current.y - phy;
 
     if (autoRotate) {
-      outer.current.rotation.y += autoRotateSpeed * dt;
-      need = true;
+      const rotationFactor = typeof window !== 'undefined' && 'modelRotationFactor' in window 
+        ? (window as any).modelRotationFactor 
+        : 1;
+
+      if (rotationFactor > 0.01) {
+        outer.current.rotation.y += autoRotateSpeed * dt * rotationFactor;
+        need = true;
+      } else {
+        const diffY = initYaw - outer.current.rotation.y;
+        const shortestDiffY = Math.atan2(Math.sin(diffY), Math.cos(diffY));
+        if (Math.abs(shortestDiffY) > 0.005) {
+          outer.current.rotation.y += shortestDiffY * 0.1;
+          need = true;
+        }
+
+        const diffX = initPitch - outer.current.rotation.x;
+        const shortestDiffX = Math.atan2(Math.sin(diffX), Math.cos(diffX));
+        if (Math.abs(shortestDiffX) > 0.005) {
+          outer.current.rotation.x += shortestDiffX * 0.1;
+          need = true;
+        }
+      }
     }
 
     outer.current.rotation.y += vel.current.x;
@@ -406,8 +430,17 @@ const ModelViewer: FC<ViewerProps> = ({
   autoRotateSpeed = 0.35,
   onModelLoaded
 }) => {
-  useEffect(() => void useGLTF.preload(url), [url]);
-  const pivot = useRef(new THREE.Vector3()).current;
+  const ext = useMemo(() => {
+    const cleanUrl = url.split('?')[0].split('#')[0];
+    return cleanUrl.split('.').pop()!.toLowerCase();
+  }, [url]);
+
+  useEffect(() => {
+    if (ext === 'glb' || ext === 'gltf') {
+      useGLTF.preload(url);
+    }
+  }, [url, ext]);
+  const pivot = useMemo(() => new THREE.Vector3(), []);
   const contactRef = useRef<THREE.Mesh>(null);
   const rendererRef = useRef<THREE.WebGLRenderer>(null);
   const sceneRef = useRef<THREE.Scene>(null);
