@@ -69,7 +69,7 @@ const ScrambledText: React.FC<ScrambledTextProps> = ({
       el.removeEventListener('pointermove', handleMove);
       split.revert();
     };
-  }, [radius, duration, speed, scrambleChars]);
+  }, [radius, duration, speed, scrambleChars, children]);
 
   return (
     <div
