@@ -120,7 +120,7 @@ const ModelInner: FC<ModelInnerProps> = ({
 }) => {
   const outer = useRef<THREE.Group>(null!);
   const inner = useRef<THREE.Group>(null!);
-  const { camera, gl } = useThree();
+  const { camera, gl, size } = useThree();
 
   const vel = useRef({ x: 0, y: 0 });
   const tPar = useRef({ x: 0, y: 0 });
@@ -171,7 +171,11 @@ const ModelInner: FC<ModelInnerProps> = ({
     if (autoFrame && (camera as THREE.PerspectiveCamera).isPerspectiveCamera) {
       const persp = camera as THREE.PerspectiveCamera;
       const fitR = sphere.radius * s;
-      const d = (fitR * 1.2) / Math.sin((persp.fov * Math.PI) / 180 / 2);
+      const fovRad = (persp.fov * Math.PI) / 180;
+      const aspect = persp.aspect;
+      const hFovRad = 2 * Math.atan(Math.tan(fovRad / 2) * aspect);
+      const fovToUse = aspect < 1 ? hFovRad : fovRad;
+      const d = (fitR * 1.35) / Math.sin(fovToUse / 2);
       persp.position.set(pivotW.current.x, pivotW.current.y, pivotW.current.z + d);
       persp.near = d / 10;
       persp.far = d * 10;
@@ -195,7 +199,7 @@ const ModelInner: FC<ModelInnerProps> = ({
       }, 16);
       return () => clearInterval(id);
     } else onLoaded?.();
-  }, [content]);
+  }, [content, size.width, size.height]);
 
   useEffect(() => {
     if (!enableManualRotation || isTouch) return;

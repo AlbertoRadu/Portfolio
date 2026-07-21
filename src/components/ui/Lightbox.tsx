@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 interface LightboxProps {
@@ -18,6 +18,8 @@ export function Lightbox({
   onPrev,
   onNext,
 }: LightboxProps) {
+  const touchStartX = useRef<number | null>(null);
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -31,12 +33,31 @@ export function Lightbox({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onPrev, onNext, onClose]);
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.changedTouches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - touchEndX;
+
+    if (diff > 50) {
+      onNext();
+    } else if (diff < -50) {
+      onPrev();
+    }
+    touchStartX.current = null;
+  };
+
   if (!isOpen || images.length === 0) return null;
 
   return (
     <div
       className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center select-none"
       onClick={onClose}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       {/* Close Button */}
       <button
@@ -47,32 +68,9 @@ export function Lightbox({
         <X size={28} />
       </button>
 
-      {/* Navigation Arrows */}
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          onPrev();
-        }}
-        className="cursor-target absolute left-6 p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-all z-40"
-        aria-label="Previous image"
-      >
-        <ChevronLeft size={28} />
-      </button>
-
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          onNext();
-        }}
-        className="cursor-target absolute right-6 p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-all z-40"
-        aria-label="Next image"
-      >
-        <ChevronRight size={28} />
-      </button>
-
       {/* Image Container */}
       <div
-        className="relative max-w-[90vw] max-h-[80vh] flex flex-col items-center justify-center"
+        className="relative max-w-[90vw] max-h-[80vh] flex flex-col items-center justify-center z-10"
         onClick={(e) => e.stopPropagation()}
       >
         <img
@@ -85,6 +83,29 @@ export function Lightbox({
           {currentIndex + 1} / {images.length}
         </div>
       </div>
+
+      {/* Navigation Arrows (Defined after container and set to z-50 to ensure they display on top) */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onPrev();
+        }}
+        className="cursor-target absolute left-4 md:left-6 p-2 md:p-3 rounded-full bg-black/75 hover:bg-black/90 border border-white/20 text-white transition-all z-50"
+        aria-label="Previous image"
+      >
+        <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
+      </button>
+
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onNext();
+        }}
+        className="cursor-target absolute right-4 md:right-6 p-2 md:p-3 rounded-full bg-black/75 hover:bg-black/90 border border-white/20 text-white transition-all z-50"
+        aria-label="Next image"
+      >
+        <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
+      </button>
     </div>
   );
 }

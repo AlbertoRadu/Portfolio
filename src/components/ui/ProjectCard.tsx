@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import BorderGlow from './BorderGlow';
 import { useLanguage } from '../../context/LanguageContext';
@@ -12,6 +12,7 @@ interface ImageCarouselProps {
 
 function ImageCarousel({ images, altText, onImageClick }: ImageCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const touchStartX = useRef<number | null>(null);
 
   const handlePrev = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -23,8 +24,31 @@ function ImageCarousel({ images, altText, onImageClick }: ImageCarouselProps) {
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.changedTouches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - touchEndX;
+
+    if (diff > 50) {
+      // Swipe left -> Next
+      setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    } else if (diff < -50) {
+      // Swipe right -> Prev
+      setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    }
+    touchStartX.current = null;
+  };
+
   return (
-    <div className="relative group w-full aspect-[16/10] overflow-hidden rounded-xl bg-black border border-white/5 flex items-center justify-center">
+    <div 
+      className="relative group w-full aspect-[16/10] overflow-hidden rounded-xl bg-black border border-white/5 flex items-center justify-center"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       {/* Images wrapper */}
       <div className="w-full h-full relative flex items-center justify-center">
         {images.map((img, idx) => (
@@ -43,14 +67,14 @@ function ImageCarousel({ images, altText, onImageClick }: ImageCarouselProps) {
       {/* Navigation Arrows */}
       <button
         onClick={handlePrev}
-        className="cursor-target absolute left-3 top-1/2 -translate-y-1/2 z-20 p-1.5 rounded-full bg-black/60 border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/80"
+        className="cursor-target absolute left-3 top-1/2 -translate-y-1/2 z-20 p-1.5 rounded-full bg-black/60 border border-white/10 text-white lg:opacity-0 lg:group-hover:opacity-100 opacity-100 transition-opacity duration-300 hover:bg-black/80"
         aria-label="Previous image"
       >
         <ChevronLeft size={18} />
       </button>
       <button
         onClick={handleNext}
-        className="cursor-target absolute right-3 top-1/2 -translate-y-1/2 z-20 p-1.5 rounded-full bg-black/60 border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/80"
+        className="cursor-target absolute right-3 top-1/2 -translate-y-1/2 z-20 p-1.5 rounded-full bg-black/60 border border-white/10 text-white lg:opacity-0 lg:group-hover:opacity-100 opacity-100 transition-opacity duration-300 hover:bg-black/80"
         aria-label="Next image"
       >
         <ChevronRight size={18} />

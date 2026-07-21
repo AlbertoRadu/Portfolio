@@ -57,10 +57,10 @@ function Navbar() {
     >
       <div className="max-w-6xl mx-auto px-6 sm:px-8 flex justify-between items-center relative">
         {/* Left Spacer / Mobile Hamburger Toggle */}
-        <div className="flex items-center w-8 md:w-24">
+        <div className="flex items-center w-8 lg:w-24">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden flex flex-col justify-between w-5 h-3.5 cursor-target group"
+            className="lg:hidden flex flex-col justify-between w-5 h-3.5 cursor-target group"
             aria-label="Toggle menu"
           >
             <span className={`h-[2px] w-full bg-gray-400 rounded-lg group-hover:bg-white transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-[5px]' : ''}`} />
@@ -70,7 +70,7 @@ function Navbar() {
         </div>
 
         {/* Desktop Navigation links */}
-        <ul className="hidden md:flex items-center gap-10 text-xs font-mono tracking-wider uppercase">
+        <ul className="hidden lg:flex items-center gap-10 text-xs font-mono tracking-wider uppercase">
           {NAV_ITEMS.map((item) => (
             <li key={item.id}>
               <a
@@ -117,7 +117,7 @@ function Navbar() {
 
       {/* Mobile Dropdown Menu Container (Outside padded container to span full viewport width) */}
       <div
-        className={`absolute top-full left-0 right-0 z-40 md:hidden transition-all duration-300 ease-in-out border-b border-white/5 bg-black/95 backdrop-blur-lg overflow-hidden ${
+        className={`absolute top-full left-0 right-0 z-40 lg:hidden transition-all duration-300 ease-in-out border-b border-white/5 bg-black/95 backdrop-blur-lg overflow-hidden ${
           isOpen ? 'max-h-72 opacity-100 py-6' : 'max-h-0 opacity-0 py-0'
         }`}
       >
