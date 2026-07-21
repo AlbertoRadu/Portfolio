@@ -57,7 +57,7 @@ function Navbar() {
     >
       <div className="max-w-6xl mx-auto px-6 sm:px-8 flex justify-between items-center relative">
         {/* Left Spacer / Mobile Hamburger Toggle */}
-        <div className="flex items-center w-24">
+        <div className="flex items-center w-8 md:w-24">
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden flex flex-col justify-between w-5 h-3.5 cursor-target group"
@@ -113,27 +113,27 @@ function Navbar() {
             EN
           </button>
         </div>
+      </div>
 
-        {/* Mobile Dropdown Menu Container */}
-        <div
-          className={`absolute top-full left-0 right-0 z-40 md:hidden transition-all duration-300 ease-in-out border-b border-white/5 bg-black/95 backdrop-blur-lg overflow-hidden ${
-            isOpen ? 'max-h-72 opacity-100 py-6' : 'max-h-0 opacity-0 py-0'
-          }`}
-        >
-          <ul className="flex flex-col items-center gap-6 font-mono text-xs tracking-wider uppercase">
-            {NAV_ITEMS.map((item) => (
-              <li key={item.id}>
-                <a
-                  href={`#${item.id}`}
-                  onClick={(e) => handleMobileNavClick(e, item.id)}
-                  className="cursor-target text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  {t(item.labelKey)}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+      {/* Mobile Dropdown Menu Container (Outside padded container to span full viewport width) */}
+      <div
+        className={`absolute top-full left-0 right-0 z-40 md:hidden transition-all duration-300 ease-in-out border-b border-white/5 bg-black/95 backdrop-blur-lg overflow-hidden ${
+          isOpen ? 'max-h-72 opacity-100 py-6' : 'max-h-0 opacity-0 py-0'
+        }`}
+      >
+        <ul className="flex flex-col items-center gap-6 font-mono text-xs tracking-wider uppercase">
+          {NAV_ITEMS.map((item) => (
+            <li key={item.id}>
+              <a
+                href={`#${item.id}`}
+                onClick={(e) => handleMobileNavClick(e, item.id)}
+                className="cursor-target text-gray-400 hover:text-white transition-colors duration-200"
+              >
+                {t(item.labelKey)}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </nav>
   );

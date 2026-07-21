@@ -123,11 +123,15 @@
     }
   body {
     @apply bg-background text-foreground m-0 p-0;
+    overflow-x: hidden;
+    max-width: 100%;
     }
   html {
     @apply font-sans;
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.15) #000000;
+    overflow-x: hidden;
+    max-width: 100%;
     }
   .cursor-target, button, a {
     cursor: pointer;
